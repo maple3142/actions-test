@@ -9,5 +9,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Start code server
       run: docker run -d --name code -p 9000:9000 -v $PWD:/home/coder/projects chinodesuuu/coder:ubuntu
-    - name: Start ssh forwarding
-      run: ssh -t -t -R 80:localhost:9000 ssh.localhost.run
+    - name: Setup ngrok
+      run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ../ngrok.zip && unzip ../ngrok.zip -d .. && ./ngrok authtoken {{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Start ngrok forwarding
+      run: ngrok http 9000
