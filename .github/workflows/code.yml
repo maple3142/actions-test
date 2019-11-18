@@ -9,7 +9,11 @@ jobs:
     - uses: actions/checkout@v1
     - name: Start code server
       run: docker run -d --name code -p 9000:9000 -v $PWD:/home/coder/projects chinodesuuu/coder:ubuntu
+    - name: Download ngrok
+      run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ../ngrok.zip
+    - name: Unzip ngrok
+      run: unzip ../ngrok.zip -d ..
     - name: Setup ngrok
-      run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ../ngrok.zip && unzip ../ngrok.zip -d .. && ../ngrok authtoken {{ secrets.NGROK_AUTH_TOKEN }}
+      run: ../ngrok authtoken {{ secrets.NGROK_AUTH_TOKEN }}
     - name: Start ngrok forwarding
       run: ../ngrok http 9000
