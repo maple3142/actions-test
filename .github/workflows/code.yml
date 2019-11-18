@@ -12,7 +12,7 @@ jobs:
     - name: Git clone
       run: docker exec code git clone $REPO
       env:
-        REPO: https://github.com/${{ github.repository }}.git
+        REPO: https://github.com/${{ github.repository }}.git ~/projects
     - name: Download ngrok
       run: wget $(curl -s https://ngrok.com/download | grep -o "https://.*linux-amd64.zip") -O ../ngrok.zip
     - name: Unzip ngrok
