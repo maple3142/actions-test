@@ -6,8 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: docker://chinodesuuu/coder:ubuntu
     - uses: actions/checkout@v1
+    - name: Start code server
+      run: docker run -d --name code -p 9000:9000 chinodesuuu/coder:ubuntu
+    - name: Git clone
+      run: docker exec code git clone $REPO
+      env:
+        REPO: https://github.com/${{ github.repository }}.git
     - name: Download ngrok
       run: wget $(curl -s https://ngrok.com/download | grep -o "https://.*linux-amd64.zip") -O ../ngrok.zip
     - name: Unzip ngrok
