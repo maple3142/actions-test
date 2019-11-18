@@ -10,7 +10,7 @@ jobs:
     - name: Start code server
       run: docker run -d --name code -p 9000:9000 -v $PWD:/home/coder/projects chinodesuuu/coder:ubuntu
     - name: Download ngrok
-      run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ../ngrok.zip
+      run: wget $(curl -s https://ngrok.com/download | grep -o "https://.*linux-amd64.zip") -O ../ngrok.zip
     - name: Unzip ngrok
       run: unzip ../ngrok.zip -d ..
     - name: Setup ngrok
